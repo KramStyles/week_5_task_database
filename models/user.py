@@ -21,9 +21,7 @@ class User:
         if self.cursor:
             self.cursor.close()
 
-    def add(self):
-        print('added')
+    def all(self):
+        pass
 
 
-me = User()
-me.add()
