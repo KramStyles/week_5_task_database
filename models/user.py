@@ -1,5 +1,7 @@
+from datetime import datetime
+
 import psycopg2
-import psycopg2.errors
+from psycopg2 import OperationalError, errors, errorcodes
 
 
 class User:
@@ -28,7 +30,7 @@ class User:
             self.cursor.execute(sql)
 
             return self.cursor.fetchall()
-        except (Exception, psycopg2.errors) as err:
+        except (Exception, errors) as err:
             return f"Fetch All Error: {err}"
         finally:
             self.close_connection()
@@ -41,10 +43,44 @@ class User:
                 self.cursor.execute(sql)
 
                 return self.cursor.fetchone()
-            except (Exception, psycopg2.errors) as err:
+            except errors as err:
                 return f"Fetch by ID Error: {err}"
             finally:
                 self.close_connection()
         return "Only Numbers are allowed"
 
+    # def db_operations(function):
+    #     def wrapper(self, **params):
+    #         try:
+    #             self.connect()
+    #             return function(**params)
+    #         except Exception as err:
+    #             return f'Database Operational Error: {err}'
+    #         finally:
+    #             self.close_connection()
+    #
+    #     return wrapper()
 
+    # @db_operations
+    def create(self, testing=False, **params):
+        if params:
+            try:
+                self.connect()
+                params['created_at'] = datetime.today().strftime("%Y-%m-%d")
+                columns = ', '.join(params.keys())
+                values = str(list(params.values())).replace('[', '').replace(']', '')
+                sql = f"""INSERT INTO users ({columns}) values ({values})"""
+
+                self.cursor.execute(sql)
+                if not testing:
+                    self.conn.commit()
+                return 'Created successfully'
+            except Exception as err:
+                return f'Create User Error: {err}'
+            finally:
+                self.close_connection()
+        else:
+            return 'Incorrect parameters'
+
+
+# print(User().create(username='folukotibo', first_name='Folusho', last_name='kotibo'))
