@@ -47,4 +47,6 @@ class User:
                 self.close_connection()
         return "Only Numbers are allowed"
 
-
+    def create(self, **params):
+        if params:
+            print(params)
