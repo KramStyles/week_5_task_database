@@ -21,9 +21,9 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user.get('hello'), 'Only Numbers are allowed')
 
     def test_to_create_user(self):
-        params = None
-        self.assertEqual(self.user.create(params), 'Created successfully')
-        self.assertIsInstance(self.user.create(), errors)
+        self.assertEqual(self.user.create(True, first_name='michael', last_name='jamie', username='koli'), 'Created successfully')
+        self.assertIsInstance(self.user.create(True, first_name='michael', last_name='jamie'), str)
+        self.assertEqual(self.user.create(), 'Incorrect parameters')
 
     def tearDown(self) -> None:
         self.user.close_connection()
