@@ -11,6 +11,11 @@ class TestUser(unittest.TestCase):
         self.assertIsNotNone(self.user.all())
         self.assertIsInstance(self.user.all(), list)
 
+    def test_get(self):
+        self.assertIsNotNone(self.user.get(1))
+        self.assertIsNone(self.user.get(19983))
+        self.assertIsInstance(self.user.get(2), tuple)
+
     def tearDown(self) -> None:
         self.user.close_connection()
         self.user = None
