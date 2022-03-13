@@ -22,6 +22,15 @@ class User:
             self.cursor.close()
 
     def all(self):
-        pass
+        try:
+            self.connect()
+            sql = """SELECT * FROM users"""
+            self.cursor.execute(sql)
+
+            return self.cursor.fetchall()
+        except (Exception, psycopg2.errors) as err:
+            return f"Something went wrong: {err}"
+        finally:
+            self.close_connection()
 
 

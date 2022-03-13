@@ -9,6 +9,7 @@ class TestUser(unittest.TestCase):
 
     def test_all(self):
         self.assertIsNotNone(self.user.all())
+        self.assertIsInstance(self.user.all(), list)
 
     def tearDown(self) -> None:
         self.user.close_connection()
