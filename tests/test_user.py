@@ -1,6 +1,6 @@
 import unittest
 
-from psycopg2 import errors
+from psycopg2 import Error
 
 from models import user
 
@@ -24,6 +24,11 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user.create(True, first_name='michael', last_name='jamie', username='koli'), 'Created successfully')
         self.assertIsInstance(self.user.create(True, first_name='michael', last_name='jamie'), str)
         self.assertEqual(self.user.create(), 'Incorrect parameters')
+
+    def test_to_update_user_record(self):
+        self.assertEqual(self.user.update(4, True, username='kelly', last_name='martin'), 'Changes applied!')
+        self.assertEqual(self.user.update(), 'Incomplete parameters')
+        self.assertIsInstance(self.user.update(1, True, fullname='Jerry Michael'), Error)
 
     def tearDown(self) -> None:
         self.user.close_connection()

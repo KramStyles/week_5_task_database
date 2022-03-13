@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import psycopg2
-from psycopg2 import OperationalError, errors, errorcodes
+from psycopg2 import Error
 
 
 class User:
@@ -30,7 +30,7 @@ class User:
             self.cursor.execute(sql)
 
             return self.cursor.fetchall()
-        except (Exception, errors) as err:
+        except (Exception, Error) as err:
             return f"Fetch All Error: {err}"
         finally:
             self.close_connection()
@@ -43,7 +43,7 @@ class User:
                 self.cursor.execute(sql)
 
                 return self.cursor.fetchone()
-            except errors as err:
+            except (Exception, Error) as err:
                 return f"Fetch by ID Error: {err}"
             finally:
                 self.close_connection()
@@ -82,5 +82,23 @@ class User:
         else:
             return 'Incorrect parameters'
 
+    def update(self, _id=None, testing=False, **params):
+        if _id and isinstance(_id, int):
+
+            try:
+                self.connect()
+
+                # Turn the params into a string of arguments
+                arguments = ', '.join([f"{x} = '{params[x]}'" for x in params])
+
+                sql = f'UPDATE users SET {arguments} where id = {_id}'
+                self.cursor.execute(sql)
+                if not testing:
+                    self.conn.commit()
+                return 'Changes applied!'
+            except Error as err:
+                return err
+        else:
+            return 'Incomplete parameters'
 
 # print(User().create(username='folukotibo', first_name='Folusho', last_name='kotibo'))
