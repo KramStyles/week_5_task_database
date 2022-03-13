@@ -101,4 +101,10 @@ class User:
         else:
             return 'Incomplete parameters'
 
+    def destroy(self, _id=None, testing=False):
+        if _id and isinstance(_id, int):
+            pass
+        else:
+            return 'Invalid parameters'
+
 # print(User().create(username='folukotibo', first_name='Folusho', last_name='kotibo'))

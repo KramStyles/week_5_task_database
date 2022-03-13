@@ -30,6 +30,10 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user.update(), 'Incomplete parameters')
         self.assertIsInstance(self.user.update(1, True, fullname='Jerry Michael'), Error)
 
+    def test_to_delete_user_record(self):
+        self.assertEqual(self.user.destroy(), 'Invalid parameters')
+        self.assertEqual(self.user.destroy(1, True), 'Record destroyed!')
+
     def tearDown(self) -> None:
         self.user.close_connection()
         self.user = None
