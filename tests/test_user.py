@@ -32,7 +32,7 @@ class TestUser(unittest.TestCase):
 
     def test_to_delete_user_record(self):
         self.assertEqual(self.user.destroy(), 'Invalid parameters')
-        self.assertEqual(self.user.destroy(1, True), 'Record destroyed!')
+        self.assertEqual(self.user.destroy(101, True), 'Record destroyed!')
 
     def tearDown(self) -> None:
         self.user.close_connection()
