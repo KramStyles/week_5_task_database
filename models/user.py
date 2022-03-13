@@ -84,7 +84,20 @@ class User:
 
     def update(self, _id=None, testing=False, **params):
         if _id and isinstance(_id, int):
-            pass
+
+            try:
+                self.connect()
+
+                # Turn the params into a string of arguments
+                arguments = ', '.join([f"{x} = '{params[x]}'" for x in params])
+
+                sql = f'UPDATE users SET {arguments} where id = {_id}'
+                self.cursor.execute(sql)
+                if not testing:
+                    self.conn.commit()
+                return 'Changes applied!'
+            except Error as err:
+                return err
         else:
             return 'Incomplete parameters'
 
