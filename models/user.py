@@ -29,8 +29,22 @@ class User:
 
             return self.cursor.fetchall()
         except (Exception, psycopg2.errors) as err:
-            return f"Something went wrong: {err}"
+            return f"Fetch All Error: {err}"
         finally:
             self.close_connection()
+
+    def get(self, _id: int):
+        if _id and isinstance(_id, int):
+            try:
+                self.connect()
+                sql = f"""SELECT * FROM users where id = {_id}"""
+                self.cursor.execute(sql)
+
+                return self.cursor.fetchone()
+            except (Exception, psycopg2.errors) as err:
+                return f"Fetch by ID Error: {err}"
+            finally:
+                self.close_connection()
+        return "Only Numbers are allowed"
 
 
