@@ -17,5 +17,5 @@ class Song:
         if self.conn: self.conn.close()
         if self.cursor: self.cursor.close()
 
-    def all(self):
+    def all(self, user_id=None, testing=False):
         pass
