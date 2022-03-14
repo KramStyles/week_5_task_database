@@ -21,3 +21,6 @@ class Song(Connection):
                 self.close_connection()
         else:
             return 'User ID needed'
+
+    def get(self, _id=None):
+        pass
