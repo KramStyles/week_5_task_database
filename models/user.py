@@ -45,7 +45,7 @@ class User(Connection):
                 if not testing:
                     self.conn.commit()
                 return 'Created successfully'
-            except Exception as err:
+            except (Error, Exception) as err:
                 return f'Create User Error: {err}'
             finally:
                 self.close_connection()

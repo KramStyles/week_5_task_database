@@ -35,3 +35,23 @@ class Song(Connection):
             finally:
                 self.close_connection()
         return "Only Numbers are allowed"
+
+    def create(self, testing=False, **params):
+        if params:
+            try:
+                self.connect()
+                params['created_at'] = datetime.today().strftime("%Y-%m-%d")
+                columns = ', '.join(params.keys())
+                values = str(list(params.values())).replace('[', '').replace(']', '')
+                sql = f"""INSERT INTO songs ({columns}) values ({values})"""
+
+                self.cursor.execute(sql)
+                if not testing:
+                    self.conn.commit()
+                return 'Song added'
+            except (Exception, Error) as err:
+                return err
+            finally:
+                self.close_connection()
+        else:
+            return 'Incorrect parameters'
