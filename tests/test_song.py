@@ -23,8 +23,9 @@ class TestSong(unittest.TestCase):
         self.assertEqual(self.song.get('one dance'), 'Only Numbers are allowed')
 
     def test_to_create_songs(self):
-        # self.assertEqual(self.song.create())
-        pass
+        self.assertEqual(self.song.create(True, name='(Finesse) Pheelz & Buju', genre='afro'), 'Created successfully')
+        self.assertIsInstance(self.song.create(True, first_name='michael', last_name='jamie'), str)
+        self.assertEqual(self.song.create(), 'Incorrect parameters')
 
     def tearDown(self) -> None:
         self.song.close_connection()
