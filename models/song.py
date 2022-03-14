@@ -23,4 +23,15 @@ class Song(Connection):
             return 'User ID needed'
 
     def get(self, _id=None):
-        pass
+        if self.verify_input(_id):
+            try:
+                self.connect()
+                sql = f"""SELECT * FROM songs where id = {_id}"""
+                self.cursor.execute(sql)
+
+                return self.cursor.fetchone()
+            except (Exception, Error) as err:
+                return f"Fetch by ID Error: {err}"
+            finally:
+                self.close_connection()
+        return "Only Numbers are allowed"

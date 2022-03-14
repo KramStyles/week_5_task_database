@@ -19,7 +19,7 @@ class User(Connection):
             self.close_connection()
 
     def get(self, _id: int):
-        if _id and isinstance(_id, int):
+        if self.verify_input(_id):
             try:
                 self.connect()
                 sql = f"""SELECT * FROM users where id = {_id}"""
@@ -53,8 +53,7 @@ class User(Connection):
             return 'Incorrect parameters'
 
     def update(self, _id=None, testing=False, **params):
-        if _id and isinstance(_id, int):
-
+        if self.verify_input(_id):
             try:
                 self.connect()
 
@@ -74,7 +73,7 @@ class User(Connection):
             return 'Incomplete parameters'
 
     def destroy(self, _id=None, testing=False):
-        if _id and isinstance(_id, int):
+        if self.verify_input(_id):
             try:
                 self.connect()
                 sql = f'DELETE FROM users where id = {_id}'

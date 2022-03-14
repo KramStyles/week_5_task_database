@@ -16,3 +16,11 @@ class Connection:
     def close_connection(self):
         if self.conn: self.conn.close()
         if self.cursor: self.cursor.close()
+
+    @staticmethod
+    def verify_input(num):
+        if num and isinstance(num, int):
+            return num
+        if str(num).isdigit():
+            return int(num)
+        return None
