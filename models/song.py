@@ -75,3 +75,19 @@ class Song(Connection):
                 self.close_connection()
         else:
             return 'Incomplete parameters'
+
+    def destroy(self, _id=None, testing=False):
+        if self.verify_input(_id):
+            try:
+                self.connect()
+                sql = f'DELETE FROM songs where id = {_id}'
+                self.cursor.execute(sql)
+                if not testing:
+                    self.conn.commit()
+                return 'Song deleted!'
+            except (Exception, Error) as err:
+                return err
+            finally:
+                self.close_connection()
+        else:
+            return 'Invalid parameters'

@@ -37,6 +37,7 @@ class TestSong(unittest.TestCase):
     def test_to_delete_song_record(self):
         self.assertEqual(self.song.destroy(), 'Invalid parameters')
         self.assertEqual(self.song.destroy(1, True), 'Song deleted!')
+        self.assertEqual(self.song.destroy('Adekunle Gold', True), 'Invalid parameters')
 
     def tearDown(self) -> None:
         self.song.close_connection()
