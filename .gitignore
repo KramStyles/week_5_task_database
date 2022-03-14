@@ -1,3 +1,5 @@
 .DS_Store
 evn/
 .idea/
+mytest.py
+__pycache__/

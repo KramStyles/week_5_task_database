@@ -11,13 +11,13 @@ class TestUser(unittest.TestCase):
         self.user.connect()
 
     def test_to_select_all_data(self):
-        self.assertIsNotNone(self.user.all())
         self.assertIsInstance(self.user.all(), list)
+        self.assertIsNotNone(self.user.all())
 
     def test_to_get_user_by_id(self):
-        self.assertIsNotNone(self.user.get(1))
+        self.assertIsNotNone(self.user.get(3))
         self.assertIsNone(self.user.get(19983))
-        self.assertIsInstance(self.user.get(2), tuple)
+        self.assertIsInstance(self.user.get(3), tuple)
         self.assertEqual(self.user.get('hello'), 'Only Numbers are allowed')
 
     def test_to_create_user(self):

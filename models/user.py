@@ -1,28 +1,11 @@
 from datetime import datetime
 
-import psycopg2
 from psycopg2 import Error
 
+from models.connection import Connection
 
-class User:
-    def __init__(self):
-        self.conn = self.cursor = None
 
-    def connect(self):
-        self.conn = psycopg2.connect(
-            user='postgres', password='*',
-            host='localhost', port=5432,
-            database='db_decagon'
-        )
-
-        self.cursor = self.conn.cursor()
-
-    def close_connection(self):
-        if self.conn:
-            self.conn.close()
-        if self.cursor:
-            self.cursor.close()
-
+class User(Connection):
     def all(self):
         try:
             self.connect()
@@ -105,4 +88,3 @@ class User:
                 self.close_connection()
         else:
             return 'Invalid parameters'
-
