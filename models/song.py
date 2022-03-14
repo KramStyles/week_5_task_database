@@ -3,19 +3,21 @@ from datetime import datetime
 import psycopg2
 from psycopg2 import Error
 
+from models.connection import Connection
 
-class Song:
-    def __init__(self):
-        self.conn = psycopg2.connect(
-            user='postgres', password='*',
-            port=5432, host='localhost',
-            database='db_decagon'
-        )
-        self.cursor = self.conn.cursor()
 
-    def close_connection(self):
-        if self.conn: self.conn.close()
-        if self.cursor: self.cursor.close()
+class Song(Connection):
+    def all(self, user_id=None):
+        if user_id and isinstance(user_id, int):
+            try:
+                self.connect()
+                sql = """SELECT * FROM songs"""
+                self.cursor.execute(sql)
 
-    def all(self, user_id=None, testing=False):
-        pass
+                return self.cursor.fetchall()
+            except (Exception, Error) as err:
+                return f"Fetch All Error: {err}"
+            finally:
+                self.close_connection()
+        else:
+            return 'User ID needed'
