@@ -55,3 +55,23 @@ class Song(Connection):
                 self.close_connection()
         else:
             return 'Incorrect parameters'
+
+    def update(self, _id=None, testing=False, **params):
+        if self.verify_input(_id):
+            try:
+                self.connect()
+
+                # Turn the params into a string of arguments
+                arguments = ', '.join([f"{x} = '{params[x]}'" for x in params])
+
+                sql = f'UPDATE songs SET {arguments} where id = {_id}'
+                self.cursor.execute(sql)
+                if not testing:
+                    self.conn.commit()
+                return 'Record updated!'
+            except Error as err:
+                return err
+            finally:
+                self.close_connection()
+        else:
+            return 'Incomplete parameters'
