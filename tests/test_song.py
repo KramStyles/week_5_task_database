@@ -34,6 +34,11 @@ class TestSong(unittest.TestCase):
         self.assertEqual(self.song.update(), 'Incomplete parameters')
         self.assertIsInstance(self.song.update(4, True, genres='afro pop'), Error)
 
+    def test_to_delete_song_record(self):
+        self.assertEqual(self.song.destroy(), 'Invalid parameters')
+        self.assertEqual(self.song.destroy(1, True), 'Song deleted!')
+        self.assertEqual(self.song.destroy('Adekunle Gold', True), 'Invalid parameters')
+
     def tearDown(self) -> None:
         self.song.close_connection()
         self.song = None
