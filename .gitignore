@@ -4,3 +4,4 @@ evn/
 mytest.py
 __pycache__/
 .coverage
+/tests/test_run.py
