@@ -8,8 +8,7 @@ CREATE TABLE users
     first_name character varying(50) NOT NULL,
     last_name character varying(50) NOT NULL,
     created_at date NOT NULL,
-    updated_at date,
-    PRIMARY KEY (id)
+    updated_at date
 );
 
 CREATE TABLE songs
@@ -19,6 +18,5 @@ CREATE TABLE songs
     name character varying(100) NOT NULL,
     genre character varying(50) NOT NULL,
     created_at date NOT NULL,
-    updated_at date,
-    PRIMARY KEY (id)
+    updated_at date
 );

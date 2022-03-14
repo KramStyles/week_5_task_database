@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import psycopg2
 from psycopg2 import Error
 
 from models.connection import Connection
@@ -11,10 +10,11 @@ class Song(Connection):
         if user_id and isinstance(user_id, int):
             try:
                 self.connect()
-                sql = """SELECT * FROM songs"""
+                sql = f"""SELECT * FROM songs where user_id = {user_id}"""
                 self.cursor.execute(sql)
-
-                return self.cursor.fetchall()
+                result = self.cursor.fetchall()
+                
+                return result if result != [] else None
             except (Exception, Error) as err:
                 return f"Fetch All Error: {err}"
             finally:
