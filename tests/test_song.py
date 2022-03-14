@@ -1,5 +1,6 @@
 import unittest
 import datetime
+
 from psycopg2 import Error
 
 from models import song
@@ -27,6 +28,11 @@ class TestSong(unittest.TestCase):
         self.assertIsInstance(self.song.create(True, user_id=322, name='(Ginger Me) Rema', genre='afro'), Error)
         self.assertEqual(self.song.create(), 'Incorrect parameters')
         self.assertIsInstance(self.song.create(True, first_name='michael', last_name='jamie'), Error)
+
+    def test_to_update_song_record(self):
+        self.assertEqual(self.song.update(2, True, genre='afro pop'), 'Record updated!')
+        self.assertEqual(self.song.update(), 'Incomplete parameters')
+        self.assertIsInstance(self.song.update(4, True, genres='afro pop'), Error)
 
     def tearDown(self) -> None:
         self.song.close_connection()
