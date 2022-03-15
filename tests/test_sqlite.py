@@ -44,8 +44,8 @@ class TestCrud(unittest.TestCase):
         self.assertIsInstance(self.db.read(what='firstname', conditions='where Grade = "C"'), Error)
 
     def test_to_update_data(self):
-        self.assertEqual(self.db.update("last_name='Adama Brand'", where="where first_name='Stern'"), 'ok')
-        self.assertIsInstance(self.db.update("lastname='Adama Brand'", where="first_name='Stern'"), Error)
+        self.assertEqual(self.db.update("last_name='Adama Brand'", condition="first_name='Stern'"), 'ok')
+        self.assertIsInstance(self.db.update("lastname='Adama Brand'", condition="first_name='Stern'"), Error)
 
     def test_to_delete_data(self):
         self.assertEqual(self.db.delete('last_name = "Adam"'), 'ok')

@@ -128,7 +128,7 @@ class Crud(Connection):
             self.close_connection()
             return msg
 
-    def delete(self, table='grades', conditions=''):
+    def delete(self, conditions='', table='grades'):
         self.connect()
         if conditions:
             conditions = 'where ' + conditions
