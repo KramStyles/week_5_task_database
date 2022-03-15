@@ -47,6 +47,10 @@ class TestCrud(unittest.TestCase):
         self.assertEqual(self.db.update("last_name='Adama Brand'", where="where first_name='Stern'"), 'ok')
         self.assertIsInstance(self.db.update("lastname='Adama Brand'", where="first_name='Stern'"), Error)
 
+    def test_to_delete_data(self):
+        self.assertEqual(self.db.delete('last_name = "Adam"'), 'ok')
+        self.assertIsInstance(self.db.delete('firstname = Jerry'), Error)
+
     def tearDown(self) -> None:
         self.db = None
 

@@ -113,14 +113,32 @@ class Crud(Connection):
             self.close_connection()
             return msg
 
-    def update(self, update_query, table='grades', where=''):
+    def update(self, update_query, table='grades', condition=''):
         self.connect()
-        sql = f"UPDATE {table} SET {update_query} {where}"
+        if condition:
+            condition = 'where ' + condition
+        sql = f"UPDATE {table} SET {update_query} {condition}"
         try:
             self.cursor.execute(sql)
             self.conn.commit()
             msg = 'ok'
         except (Exception, Error) as err:
+            msg = err
+        finally:
+            self.close_connection()
+            return msg
+
+    def delete(self, table='grades', conditions=''):
+        self.connect()
+        if conditions:
+            conditions = 'where ' + conditions
+
+        sql = f"DELETE FROM {table} {conditions};"
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            msg = 'ok'
+        except Exception as err:
             msg = err
         finally:
             self.close_connection()
