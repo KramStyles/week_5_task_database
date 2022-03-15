@@ -34,7 +34,9 @@ class TestCrud(unittest.TestCase):
         self.db = Crud()
 
     def test_to_create_data(self):
-        pass
+        self.assertEqual(self.db.create("'Jamie', 'Michael', '33211AB', 100, 89.5, 93.7, 95, 93.5, 'A'"), 'ok')
+        self.assertIsInstance(self.db.create("'Jamie', 'Michael', '33211AB', 100, 89.5, 93.7, 95, 93.5"), Error)
+        self.assertIsInstance(self.db.create(columns='last_name, first_name, ssn, grade', data="'Dec', 'Agon', '33443', 'E'"), str)
 
     def tearDown(self) -> None:
         pass

@@ -80,3 +80,6 @@ class Crud(Connection):
             return f'Error Occurred {err}'
         finally:
             self.close_connection()
+
+    def create(self):
+        pass
