@@ -5,3 +5,5 @@ mytest.py
 __pycache__/
 .coverage
 /tests/test_run.py
+gradedb.sqlite
+test_main.py
