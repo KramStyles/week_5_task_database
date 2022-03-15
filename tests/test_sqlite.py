@@ -38,6 +38,11 @@ class TestCrud(unittest.TestCase):
         self.assertIsInstance(self.db.create("'Jamie', 'Michael', '33211AB', 100, 89.5, 93.7, 95, 93.5"), Error)
         self.assertIsInstance(self.db.create(columns='last_name, first_name, ssn, grade', data="'Dec', 'Agon', '33443', 'E'"), str)
 
+    def test_to_read_data(self):
+        self.assertEqual(self.db.read(what='first_name', conditions='where Grade = "C"'), 'hello')
+        self.assertIsInstance(self.db.read(what='first_name', conditions='where Grade = "C"'), list)
+        self.assertIsInstance(self.db.read(what='firstname', conditions='where Grade = "C"'), Error)
+
     def tearDown(self) -> None:
         pass
 

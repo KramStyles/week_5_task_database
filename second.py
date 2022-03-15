@@ -100,3 +100,6 @@ class Crud(Connection):
         finally:
             self.close_connection()
             return msg
+
+    def read(self):
+        pass
