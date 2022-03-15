@@ -81,5 +81,22 @@ class Crud(Connection):
         finally:
             self.close_connection()
 
-    def create(self):
-        pass
+    def create(self, data, table='grades', columns='', testing=False):
+        self.connect()
+        if columns:
+            columns = f"({columns})"
+            values = data
+        else:
+            values = 'null, '
+            values += data
+
+        sql = f"""INSERT INTO {table} {columns} VALUES ({values})"""
+        try:
+            self.cursor.execute(sql)
+            if not testing: self.conn.commit()
+            msg = 'ok'
+        except (Exception, Error) as err:
+            msg = err
+        finally:
+            self.close_connection()
+            return msg
