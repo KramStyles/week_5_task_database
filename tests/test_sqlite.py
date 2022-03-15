@@ -29,5 +29,16 @@ class TestCreateTable(unittest.TestCase):
         self.conn = None
 
 
+class TestCrud(unittest.TestCase):
+    def setUp(self) -> None:
+        self.db = Crud()
+
+    def test_to_create_data(self):
+        pass
+
+    def tearDown(self) -> None:
+        pass
+
+
 if __name__ == '__main__':
     unittest.main()
