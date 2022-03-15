@@ -112,3 +112,17 @@ class Crud(Connection):
         finally:
             self.close_connection()
             return msg
+
+    def update(self, update_query, table='grades', where=''):
+        self.connect()
+        sql = f"UPDATE {table} SET {update_query} {where}"
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+            msg = 'ok'
+        except (Exception, Error) as err:
+            msg = err
+        finally:
+            self.close_connection()
+            return msg
+
