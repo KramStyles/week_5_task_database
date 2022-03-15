@@ -144,3 +144,16 @@ class Crud(Connection):
             self.close_connection()
             return msg
 
+
+class Queries(Crud):
+    def __init__(self):
+        super(Queries, self).__init__()
+
+    def passed_students(self):
+        return self.read(conditions="where final >= 50")
+
+    def failed_students(self):
+        return self.read(conditions="where final < 50")
+
+    def test_1_over_45(self):
+        return self.read(conditions="where test1 >= 45")

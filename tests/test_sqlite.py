@@ -1,7 +1,7 @@
 import unittest
 from sqlite3 import Error
 
-from second import Connection, Crud
+from second import Connection, Crud, Queries
 
 
 class TestConnection(unittest.TestCase):
@@ -50,6 +50,26 @@ class TestCrud(unittest.TestCase):
     def test_to_delete_data(self):
         self.assertEqual(self.db.delete('last_name = "Adam"'), 'ok')
         self.assertIsInstance(self.db.delete('firstname = Jerry'), Error)
+
+    def tearDown(self) -> None:
+        self.db = None
+
+
+class TestQueries(unittest.TestCase):
+    def setUp(self) -> None:
+        self.db = Queries()
+
+    def test_to_check_students_that_passed(self):
+        self.assertIsInstance(self.db.passed_students(), list)
+        self.assertIsNotNone(self.db.passed_students())
+
+    def test_to_check_students_that_failed(self):
+        self.assertIsInstance(self.db.failed_students(), list)
+        self.assertIsNotNone(self.db.failed_students())
+
+    def test_to_check_students_that_scored_over_45_in_test_1(self):
+        self.assertIsInstance(self.db.test_1_over_45(), list)
+        self.assertIsNotNone(self.db.test_1_over_45())
 
     def tearDown(self) -> None:
         self.db = None
