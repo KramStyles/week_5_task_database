@@ -101,5 +101,14 @@ class Crud(Connection):
             self.close_connection()
             return msg
 
-    def read(self):
-        pass
+    def read(self, table='grades', conditions='', what='*'):
+        self.connect()
+        sql = f"SELECT {what} FROM {table} {conditions};"
+        try:
+            result = self.cursor.execute(sql)
+            msg = result.fetchall()
+        except (Exception, Error) as err:
+            msg = err
+        finally:
+            self.close_connection()
+            return msg

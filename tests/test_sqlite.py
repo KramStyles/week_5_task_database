@@ -39,7 +39,7 @@ class TestCrud(unittest.TestCase):
         self.assertIsInstance(self.db.create(columns='last_name, first_name, ssn, grade', data="'Dec', 'Agon', '33443', 'E'"), str)
 
     def test_to_read_data(self):
-        self.assertEqual(self.db.read(what='first_name', conditions='where Grade = "C"'), 'hello')
+        self.assertEqual(self.db.read(what='first_name', conditions='where Grade = "C"'),  [('Hernandez',), ('Payton',)])
         self.assertIsInstance(self.db.read(what='first_name', conditions='where Grade = "C"'), list)
         self.assertIsInstance(self.db.read(what='firstname', conditions='where Grade = "C"'), Error)
 
@@ -49,3 +49,4 @@ class TestCrud(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    # python -m unittest tests/test_sqlite.py -v
