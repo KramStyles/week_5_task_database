@@ -1,5 +1,5 @@
-DROP TABLE users;
-DROP TABLE songs;
+DROP TABLE if exists users;
+DROP TABLE if exists songs;
 
 CREATE TABLE users
 (

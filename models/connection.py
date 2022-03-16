@@ -1,9 +1,27 @@
 import psycopg2
+import os
 
 
 class Connection:
     def __init__(self):
         self.conn = self.cursor = None
+        self.populate_table()
+
+    def populate_table(self):
+        schema = os.getcwd() + '/schema.sql'
+        seeder = os.getcwd() + '/seeder.sql'
+        self.connect()
+        try:
+            with open(schema) as file:
+                self.cursor.execute(schema)
+                self.conn.commit()
+            with open(seeder) as file:
+                self.cursor.execute(schema)
+                self.conn.commit()
+        except Exception as err:
+            return err
+        finally:
+            self.close_connection()
 
     def connect(self):
         self.conn = psycopg2.connect(
