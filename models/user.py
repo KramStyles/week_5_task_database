@@ -57,6 +57,8 @@ class User(Connection):
             try:
                 self.connect()
 
+                params['updated_at'] = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+
                 # Turn the params into a string of arguments
                 arguments = ', '.join([f"{x} = '{params[x]}'" for x in params])
 
