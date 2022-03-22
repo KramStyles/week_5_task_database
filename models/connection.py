@@ -13,10 +13,10 @@ class Connection:
         self.connect()
         try:
             with open(schema) as file:
-                self.cursor.execute(schema)
+                self.cursor.execute(file.read())
                 self.conn.commit()
             with open(seeder) as file:
-                self.cursor.execute(schema)
+                self.cursor.execute(file.read())
                 self.conn.commit()
         except Exception as err:
             return err
