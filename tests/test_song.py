@@ -24,7 +24,7 @@ class TestSong(unittest.TestCase):
         self.assertEqual(self.song.get('one dance'), 'Only Numbers are allowed')
 
     def test_to_create_songs(self):
-        self.assertEqual(self.song.create(True, user_id=3, name='(Finesse) Pheelz', genre='afro'), 'Song added')
+        self.assertEqual(self.song.create(True, user_id=3, name='(Finesse) Pheelz', genre='afro', id=200), 'Song added')
         self.assertIsInstance(self.song.create(True, user_id=322, name='(Ginger Me) Rema', genre='afro'), Error)
         self.assertEqual(self.song.create(), 'Incorrect parameters')
         self.assertIsInstance(self.song.create(True, first_name='michael', last_name='jamie'), Error)
